@@ -63,22 +63,22 @@
         const prediction = await model.predict(posenetOutput);
 
 
-        // if user wnats to start, exercise is true
-        if(prediction[7].probablity.toFixed(2) > 0.90){
+        // // if user wnats to start, exercise is true
+        if(prediction[7].probability.toFixed(2) > 0.90){
             exercise = true;
         }
 
         // if user wants to stop mid-way, stop 
-        if (prediction[6].probablity.toFixed(2) > 0.90){
+        if (prediction[6].probability.toFixed(2) > 0.90){
             exercise = false;
         } 
 
         if(exercise){
             // if 
-            if(!inExercise && prediction[exerciseNum].probablity.toFixed(2) > 0.90){
+            if(!inExercise && prediction[exerciseNum].probability.toFixed(2) > 0.90){
                 inExercise = true;
             }
-            else if(inExercise && prediction[exerciseNum+1].probablity.toFixed(2) > 0.90) {
+            else if(inExercise && prediction[exerciseNum+1].probability.toFixed(2) > 0.90) {
                 inExercise = false;
                 count++;
                 if(count == 5) {
