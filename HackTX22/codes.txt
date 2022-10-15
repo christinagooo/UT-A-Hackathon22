@@ -1,0 +1,19 @@
+Purple:
+rgb code:(116,118,255)
+Deep purple:
+rgb code:(136,71,255)
+Yellow:
+rgb code:(254,242,5)
+Deep Yellow:
+rgb code:(244,231,1)
+Teal:
+rgb code:(104,181,219)
+Deep Teal:
+rgb code:(58,157,207)
+Pink:
+rgb code:(255,124,202)
+Deep Pink:
+rgb code:(224, 0, 135)
+Pale Yellow (background):
+rgb code:(255, 251, 196)
+Font: Montserrat 
