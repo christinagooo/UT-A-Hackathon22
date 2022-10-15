@@ -2,6 +2,7 @@
 <button type="button" onclick="init()">Start</button>
 <div><canvas id="canvas"></canvas></div>
 <div id="label-container"></div>
+<body><h1>Exercising? = <span id="exercising"></span>, Count = <span id="count"></span>, Exercise = <span id="ex"></span>, <span id="type"></span></h1></body>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
 <script type="text/javascript">
@@ -53,7 +54,8 @@
     var count = 0;
     var inExercise = false;
     var type = "working";
-
+    var sets = 2;
+    var what;
 
     async function predict() {
         // Prediction #1: run input through posenet
@@ -61,29 +63,40 @@
         const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
         // Prediction 2: run input through teachable machine classification model
         const prediction = await model.predict(posenetOutput);
+        what = prediction[7].probability.toFixed(2);
 
+        document.getElementById("count").innerHTML = count;
 
+        document.getElementById("ex").innerHTML = inExercise;
+
+        document.getElementById("exercising").innerHTML = exercise;
+
+        document.getElementById("type").innerHTML = exerciseNum;
         // // if user wnats to start, exercise is true
-        if(prediction[7].probability.toFixed(2) > 0.90){
+        if(!exercise && prediction[7].probability.toFixed(2) > 0.99){
             exercise = true;
         }
 
         // if user wants to stop mid-way, stop 
-        if (prediction[6].probability.toFixed(2) > 0.90){
+        if (exercise && prediction[6].probability.toFixed(2) > 0.99){
             exercise = false;
         } 
 
         if(exercise){
             // if 
-            if(!inExercise && prediction[exerciseNum].probability.toFixed(2) > 0.90){
+            if(!inExercise && prediction[exerciseNum].probability.toFixed(2) > 0.99){
                 inExercise = true;
             }
-            else if(inExercise && prediction[exerciseNum+1].probability.toFixed(2) > 0.90) {
+            else if(inExercise && prediction[exerciseNum+1].probability.toFixed(2) > 0.99) {
                 inExercise = false;
                 count++;
                 if(count == 5) {
-                    
+                    sets--;
                     count = 0;
+                }
+                if(sets == 0) {
+                    sets = 2;
+                    inExercise = false;
                     exerciseNum += 2;
                 }
             }
