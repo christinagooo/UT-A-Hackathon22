@@ -27,7 +27,7 @@
     </div>
     <style>
         body{
-            background-color: #f3b6bc; 
+            background-color: #f26d7a; 
         }
     </style>
 </div>
@@ -38,12 +38,8 @@
 <div id="label-container"></div>
 </div>
 
-<body style="font-family: Impact, fantasy;">
-    <h1>Exercising? = <span id="exercising"></span>
-        Count = <span id="count"></span>
-        Exercise = <span id="ex"></span>
-        <span id="type"></span> 
-        Set: <span id="set"></span>
+<body>
+    <h1 class="ex_text">Exercise: <span id="exercising"></span>
     </h1>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
@@ -103,10 +99,10 @@
     var inExercise = false;
     var type = "working";
     var sets = 1;
-    var what;
     var inBreak = false;
     var endtime;
-    const workouts = ["Dumbbell Fly", "Shoulder Press", "Squat"];
+    var done = false;
+    const workouts = ["Dumbbell Fly", "Shoulder Press", "Squat", "Done!!!"];
 
     async function predict() {
         // Prediction #1: run input through posenet
@@ -114,47 +110,41 @@
         const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
         // Prediction 2: run input through teachable machine classification model
         const prediction = await model.predict(posenetOutput);
-        what = prediction[7].probability.toFixed(2);
 
-        document.getElementById("breaktime").innerHTML = workouts[exerciseNum / 2];
+        document.getElementById("exercising").innerHTML = workouts[exerciseNum / 2];
 
-        document.getElementById("count").innerHTML = count;
+        if(done) {
+            document.body.style.backgroundColor = "#fffbc4";
+            count = 5; 
+            document.getElementById("bar").setAttribute("aria-valuenow", count);
+            document.getElementById("bar").setAttribute("style", "--value: " + count); 
+        }
 
-        document.getElementById("ex").innerHTML = inExercise;
-
-        document.getElementById("exercising").innerHTML = exercise;
-
-        document.getElementById("type").innerHTML = exerciseNum;
-
-        document.getElementById("set").innerHTML = sets;
-
-
-        if(inBreak) {
+        if(inBreak && !done) {
             var timeRemaining = getTimeRemaining(endTime).seconds;
             document.getElementById("bar").setAttribute("aria-valuenow", timeRemaining);
             document.getElementById("bar").setAttribute("style", "--value: " + timeRemaining);
-            if(getTimeRemaining.seconds <= 0 || prediction[7].probability.toFixed(2) > 0.95) {
+            if(timeRemaining <= 0 || prediction[7].probability.toFixed(2) > 0.95) {
                 exercise = true;
                 document.body.style.backgroundColor = "#fffbc4";  
-                document.getElementById("breaktime").innerHTML = " ";
                 inBreak = false;
             }
         }
         // // if user wnats to start, exercise is true
-        if(!exercise && prediction[7].probability.toFixed(2) > 0.95){
+        if(!done && !exercise && prediction[7].probability.toFixed(2) > 0.95){
             exercise = true;
             document.body.style.backgroundColor = "#fffbc4";  
         }
 
         // if user wants to stop mid-way, stop 
-        if (exercise && prediction[6].probability.toFixed(2) > 0.99){
+        if (!done && exercise && prediction[6].probability.toFixed(2) > 0.99){
             exercise = false;
             inBreak = true;
             document.body.style.backgroundColor = "#f26d7a";
             endTime = toDateTime();
         } 
 
-        if(exercise){
+        if(!done && exercise){
             // if 
             document.body.style.backgroundColor = "#fffbc4";  
             document.getElementById("bar").setAttribute("aria-valuenow", count);
@@ -175,6 +165,11 @@
                     sets = 1;
                     inExercise = false;
                     exerciseNum += 2;
+                }
+                if(exerciseNum == 6) {
+                    done = true;
+                    document.getElementById("set1").setAttribute("src", "art_hacktx/workout_completed_yay.png");
+                    document.getElementById("set2").setAttribute("src", "art_hacktx/workout_completed_yay.png");
                 }
             }
         }

@@ -18,6 +18,11 @@
     margin-right: 9vw;
 }
 
+.ex_text {
+  font-family: Chalkduster, fantasy;
+  color: #6511ff;
+}
+
 .set-image {
   margin-top: 5vh;
   margin-bottom: 5vh;
@@ -45,7 +50,7 @@
   
   [role="progressbar"] {
     --percentage: var(--value);
-    --primary: #a676ff;
+    --primary: #6511ff;
     --secondary: #68b5db;
     --size: 300px;
     animation: progress 2s 0.5s forwards;
