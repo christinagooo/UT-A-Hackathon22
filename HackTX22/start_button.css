@@ -1,0 +1,20 @@
+#getfit {
+    color: rgb(255, 254, 254);
+    background-color: rgb(255,124,202);
+    font-family: 'Montserrat';
+    font-size: 20px;
+    border-radius: 10px;
+    border-color: rgb(224, 0, 135); 
+    position: absolute;
+    bottom: 200;
+    padding: 15px 0;
+    z-index: 1;
+    margin-top: 50px 0;
+    left:700px;
+} 
+
+#header {
+    position: absolute;
+    margin-left: 450px;
+    margin-right: 500px;
+}
