@@ -4,9 +4,11 @@
 
 
 
-<img id="header" src="art_hacktx/fitsense_logo_standalone.png" alt="This is an image" width="300"  >
+<div class = header>
+    <img id="header" src="art_hacktx/fitsense_logo_standalone.png" alt="This is an image" width="300"  >
+</div>
 
-<button type="button" onclick="init()">Start</button>
+<button class = "button" type="button" onclick="init()">Start</button>
 
 
 <div>
@@ -16,7 +18,9 @@
         </div>
     </div>
     <div class = column>
-        <div id='bar' role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" style="--value: 67"></div>
+        <div id='bar' role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="5" style="--value: 0"></div>
+        <img id = 'set1' class = 'set-image' id='prog1' src = "art_hacktx/workout_completed_no.png">
+        <img id = 'set2' class = 'set-image' id='prog1' src = "art_hacktx/workout_completed_no.png">
     </div>
 </div>
 
@@ -104,6 +108,8 @@
 
         document.getElementById("set").innerHTML = sets;
 
+        document.getElementById("bar").setAttribute("aria-valuenow", count);
+        document.getElementById("bar").setAttribute("style", "--value: " + count);
         // // if user wnats to start, exercise is true
         if(!exercise && prediction[7].probability.toFixed(2) > 0.90){
             exercise = true;
@@ -124,9 +130,11 @@
                 count++;
                 if(count == 5) {
                     sets++;
+                    document.getElementById("set1").setAttribute("src", "art_hacktx/workout_completed_yay.png");
                     count = 0;
                 }
                 if(sets == 3) {
+                    document.getElementById("set1").setAttribute("src", "art_hacktx/workout_completed_no.png");
                     sets = 1;
                     inExercise = false;
                     exerciseNum += 2;
