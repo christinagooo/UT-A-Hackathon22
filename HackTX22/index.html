@@ -1,12 +1,57 @@
-<img id="header" src="art_hacktx/slogan.png" width="600" class = center >
-<button id="getfit" type="button" onclick="window.location='work.html'">Let's Work Out!</button>
+<div style="font-family:'Impact', fantasy;">
+  <!-- <link href="https://fonts.googleapis.com/css?family=Rommetto One:500" rel="stylesheet" class = center > -->
+  <link rel="stylesheet" href="header.css"/>
+  <div>
+    <img id="header" src="art_hacktx/slogan.png" width="600" class = center >
+  </div>
 
-<link href="https://fonts.googleapis.com/css?family=Montserrat:500" rel="stylesheet" class = center >
-<link rel="stylesheet" href="header.css"/>
-
-
-<style> 
+  <style>
     body {
-        background-color: rgb(255, 251, 196); 
-      }
-</style>
+      background-image: url('art_hacktx/background.png');
+      background-attachment: fixed;
+      background-size: cover;
+    }
+  </style>
+
+
+  <form style=" width: 75vw; margin-left : 45vw; margin-top: 0vw; color:rgb(116,118,255) ">
+    <label for="fname">Name:</label><br>
+    <input style="color:rgb(255,124,202)" type="text" id="fname" name="fname" value="John Doe"><br>
+    <br>
+    <label for="fname">Age:</label><br>
+    <input style="color:rgb(255,124,202)" type="text" id="age" name="age" value="0"><br>
+    <br>
+    <label for="lname">Weight:</label><br>
+    <input style="color:rgb(255,124,202)"type="text" id="wt" name="wt" value="0"><br>
+    <br>
+    <label for="lname">Phone Number:</label><br>
+    <input style="color:rgb(255,124,202)"type="text" id="num" name="num" value="###-###-####"><br>
+    <br>
+  </form>
+
+  <style>
+    .button {
+      background-color:rgb(255,124,202); /* Green */
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 12px;
+      font-family: fantasy;
+    }
+
+    .button:active {
+      background-color: rgb(225,124,202);
+      box-shadow: 0 5px #666;
+      transform: translateY(4px);
+    }
+  </style>
+
+  <div style ="margin-left: 690px;">
+    <button class="button" type="button" onclick="window.location='work.html'" >Let's Work Out!</button>
+  </div>
+</div>
+
+
